@@ -7,6 +7,10 @@
     "preview": "node .output/server/index.mjs"
   },
   "devDependencies": {
+    "discord-api-types": "^0.37.114",
     "nitropack": "latest"
+  },
+  "dependencies": {
+    "discord-interactions": "^4.1.0"
   }
 }
