@@ -72,12 +72,14 @@ export const pongResponse = (): APIInteractionResponsePong => {
 };
 
 /**
- * "Hello World!"メッセージを返却するレスポンスを生成する
- * @returns Hello Worldレスポンスオブジェクト
+ * メッセージを返却するレスポンスを生成する
+ * @param content 送信するメッセージ内容
+ * @returns メッセージレスポンスオブジェクト
  */
-export const helloWorldResponse = (): APIInteractionResponseChannelMessageWithSource => {
+export const createMessageResponseObject = (content: string): APIInteractionResponseChannelMessageWithSource => {
   return {
     type: InteractionResponseType.ChannelMessageWithSource,
-    data: { content: "Hello World!" }
+    data: { content }
   };
 };
+

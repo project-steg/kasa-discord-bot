@@ -3,8 +3,9 @@ import {
   isPingRequest,
   pongResponse,
   isApplicationCommand,
-  helloWorldResponse,
+  createMessageResponseObject,
 } from "~/utils/intaraction";
+import { isUmbrellaNeeded, getUmbrellaMessage } from "~/utils/weather";
 
 export default eventHandler(async (event) => {
   // Webhookリクエストの検証
@@ -24,6 +25,7 @@ export default eventHandler(async (event) => {
     });
   }
 
-  // Hello World!を返却する
-  return helloWorldResponse();
+  const message = await getUmbrellaMessage();
+
+  return createMessageResponseObject(message);
 });
