@@ -1,5 +1,3 @@
-import { $fetch } from 'ofetch';
-
 // APIレスポンスの型定義
 type WeatherAPIResponse = {
   forecasts: {
@@ -69,11 +67,9 @@ export const getTodayRainChance = async (): Promise<TimeSlotRainChance> => {
  * 今日傘が必要かどうかを判定する
  * @returns 降水確率が閾値以上の場合はtrue、それ以外の場合はfalse
  */
-export const isUmbrellaNeeded = async (): Promise<boolean> => {
+export const isUmbrellaNeeded = async (maxChance: number): Promise<boolean> => {
   try {
-    const rainChances = await getTodayRainChance();
-    const chances = convertRainChancesToNumbers(rainChances);
-    return chances.some(chance => chance >= RAIN_PROBABILITY_THRESHOLD);
+    return maxChance >= RAIN_PROBABILITY_THRESHOLD;
   } catch (error) {
     console.error('傘の必要性の判定に失敗しました:', error);
     throw new Error('傘の必要性の判定に失敗しました');
@@ -99,7 +95,7 @@ export const getUmbrellaMessage = async (): Promise<string> => {
   try {
     const rainChances = await getTodayRainChance();
     const maxChance = calculateMaxRainChance(rainChances);
-    const isNeeded = await isUmbrellaNeeded();
+    const isNeeded = await isUmbrellaNeeded(maxChance);
 
     if (isNeeded) {
       return `☔️ 傘を持って行った方が良さそう！\n- 本日の最高降水確率: ${maxChance}%`;
