@@ -7,7 +7,7 @@ import {
 } from "~/utils/intaraction";
 import { isUmbrellaNeeded, getUmbrellaMessage } from "~/utils/weather";
 
-export default eventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   // Webhookリクエストの検証
   const publicKey = useRuntimeConfig().discordPublicKey;
   await verifyWebhookRequest(event, { publicKey });
