@@ -6,7 +6,7 @@ import {
   helloWorldResponse,
 } from "~/utils/intaraction";
 
-export default eventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   // Webhookリクエストの検証
   const publicKey = useRuntimeConfig().discordPublicKey;
   await verifyWebhookRequest(event, { publicKey });
